@@ -8,12 +8,10 @@ sentry_s3_nodestore.backend
 
 from __future__ import absolute_import
 
-import simplejson
 from base64 import urlsafe_b64encode
 from time import sleep
 from uuid import uuid4
 import zlib
-
 import boto3
 
 from sentry.nodestore.base import NodeStorage
@@ -58,7 +56,8 @@ class S3NodeStorage(NodeStorage):
         """
         >>> nodestore._get_bytes('key1')
         b'{"message": "hello world"}'
-        """
+        """ 
+        print("nodestore key: ", id);
         result = retry(self.max_retries, self.client.get_object, Bucket=self.bucket_name, Key=id)
         return zlib.decompress(result['Body'].read())
 
